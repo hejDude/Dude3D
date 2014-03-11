@@ -11,3 +11,8 @@
 *.lai
 *.la
 *.a
+
+
+# Others
+*.sdf
+*.opensdf
