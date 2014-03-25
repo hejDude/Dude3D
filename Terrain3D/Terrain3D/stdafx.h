@@ -11,19 +11,20 @@
 //#include <stdio.h>
 //#include <stdlib.h>
 
-//#include <string>
-//#include <tchar.h>
+#include <string>
+#include <tchar.h>
 //#include <time.h>
-//#include <windows.h>
+#include <windows.h>
 
-//using namespace std;
+using namespace std;
 
 
 
 // TODO: reference additional headers your program requires here
 
 /************************************************************************************************************************************/
-
+#include <d3d9.h>
+#include <d3dx9.h>	// macierze, wczytywanie tekstur z plikow, itd...
 /************************************************************************************************************************************/
 
 
@@ -31,12 +32,4 @@
 
 
 /*-------------------------------------------------------------------------------------------
-*#include <cassert> :
-	Dostarcza makro, które mo¿e byæ u¿ywane jako standardowe narzêdzie debuguj¹ce : "void assert (int expression);"
-	Gdy argument expression jest równy 0, na standardowy strumieñ b³êdów zostaje wypisana informacja oraz zostaje 
-	wywo³ana funkcja abort, która przerywa dzia³anie programu. - http://4programmers.net/C/Biblioteka_standardowa/Cassert
-
-*#include <map> :
-	Standardowy kontener, który wykorzystujemy do gromadzenia danych o naszych sprite'ach :
-	 http://pl.wikibooks.org/wiki/C++/Map
 -------------------------------------------------------------------------------------------*/
