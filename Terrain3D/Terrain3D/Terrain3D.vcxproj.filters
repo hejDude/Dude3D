@@ -21,6 +21,9 @@
     <ClCompile Include="terrain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="pixel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -32,10 +35,10 @@
     <ClInclude Include="vertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tmp.h">
+    <ClInclude Include="terrain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="terrain.h">
+    <ClInclude Include="pixel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

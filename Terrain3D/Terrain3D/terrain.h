@@ -1,4 +1,4 @@
-// Klasa terrain
+// Klasa Terrain
 
 #ifndef _terrain_h_
 #define _terrain_h_
@@ -7,6 +7,10 @@
 
 
 /************************************************************************************************************************************/
+///////////////////////
+/// Klasa reprezentujaca 3-wymiarowy teren wyswietlany w naszej symulacji :
+///////////////////////
+
 class Terrain
 {
 public :

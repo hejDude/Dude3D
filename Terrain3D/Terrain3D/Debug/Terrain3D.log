@@ -1,15 +1,32 @@
-﻿Build started 2014-04-02 16:09:19.
+﻿Build started 2014-04-27 22:38:43.
      1>Project "E:\Dude3D_Repository\Terrain3D\Terrain3D\Terrain3D.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\Terrain3D.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         All outputs are up-to-date.
+         D:\Kompilatory\Microsoft Visual Studio 2010 Professional\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>e:\dude3d_repository\terrain3d\terrain3d\main.cpp(56): warning C4244: 'argument' : conversion from 'double' to 'FLOAT', possible loss of data
+     1>e:\dude3d_repository\terrain3d\terrain3d\main.cpp(56): warning C4244: 'argument' : conversion from 'double' to 'FLOAT', possible loss of data
+     1>e:\dude3d_repository\terrain3d\terrain3d\main.cpp(164): warning C4305: 'argument' : truncation from 'double' to 'FLOAT'
+     1>e:\dude3d_repository\terrain3d\terrain3d\main.cpp(164): warning C4305: 'argument' : truncation from 'double' to 'FLOAT'
+     1>e:\dude3d_repository\terrain3d\terrain3d\main.cpp(165): warning C4305: 'argument' : truncation from 'double' to 'FLOAT'
+     1>e:\dude3d_repository\terrain3d\terrain3d\main.cpp(165): warning C4305: 'argument' : truncation from 'double' to 'FLOAT'
+     1>e:\dude3d_repository\terrain3d\terrain3d\main.cpp(166): warning C4305: 'argument' : truncation from 'double' to 'FLOAT'
+     1>e:\dude3d_repository\terrain3d\terrain3d\main.cpp(166): warning C4305: 'argument' : truncation from 'double' to 'FLOAT'
+     1>e:\dude3d_repository\terrain3d\terrain3d\main.cpp(209): warning C4305: 'argument' : truncation from 'double' to 'FLOAT'
        ManifestResourceCompile:
          All outputs are up-to-date.
        Link:
-         All outputs are up-to-date.
+         D:\Kompilatory\Microsoft Visual Studio 2010 Professional\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Dude3D_Repository\Terrain3D\Debug\Terrain3D.exe" /INCREMENTAL /NOLOGO d3d9.lib d3dx9.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Terrain3D.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\Dude3D_Repository\Terrain3D\Debug\Terrain3D.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Dude3D_Repository\Terrain3D\Debug\Terrain3D.lib" /MACHINE:X86 Debug\Terrain3D.exe.embed.manifest.res
+         Debug\main.obj
+         Debug\pixel.obj
+         Debug\terrain.obj
        Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\Terrain3D.exe.embed.manifest" /manifest Debug\Terrain3D.exe.intermediate.manifest
          All outputs are up-to-date.
+       LinkEmbedManifest:
+         All outputs are up-to-date.
+         Terrain3D.vcxproj -> E:\Dude3D_Repository\Terrain3D\Debug\Terrain3D.exe
        FinalizeBuildStatus:
          Deleting file "Debug\Terrain3D.unsuccessfulbuild".
          Touching "Debug\Terrain3D.lastbuildstate".
@@ -17,4 +34,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.17
+Time Elapsed 00:00:02.49

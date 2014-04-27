@@ -1,4 +1,4 @@
-// Metody klasy terrain
+// Metody klasy Terrain
 
 #include "terrain.h"
 
@@ -7,8 +7,6 @@
 // wczytanie terenu2D z pliku
 void LoadTerrain()
 {
-	D3DXCreateTextureFromFile(
-    pD3DDevice, _T("Terrain1.bmp"), &pTexture );
 }
 
 /************************************************************************************************************************************/
