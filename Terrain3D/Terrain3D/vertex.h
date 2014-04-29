@@ -32,7 +32,10 @@ struct Vertex
 /// Zmienne globalne :
 ///////////////////////
 
+// ilosc wierzcholkow
 extern int num_v;
+
+// wskaznik na tablice wierzcholkow
 extern Vertex *pVertices;
 
 /************************************************************************************************************************************/

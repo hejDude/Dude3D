@@ -24,6 +24,9 @@ public :
 // ilosc "kafelek", z ktorych sie sklada teren
 extern int num_tiles;
 
+// wskaznik na tablice indeksow dla poszczegolnych kwadratow powierzchi (kafelek - tiles)
+extern int *pTiles;
+
 
 // wczytanie terenu2D z pliku
 //void LoadTerrain();

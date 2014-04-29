@@ -364,7 +364,10 @@ int MakeVBuffors()
 {
 	num_tiles = ground.width * ground.length;		// ilosc "kafelek" = szerokosc * dlugosc (terenu)
 	num_v = num_tiles * 3 * 2;			// ilosc "kafelek" * 3 * 2 (bo dwa trojkaty)
+
+	pTiles = new int[num_tiles];	// mozna by tez przerobic na dwuwymiarowa : "new int[width][length]"
  
+
 	hr = pD3DDevice->CreateVertexBuffer(
 		num_v * sizeof( Vertex ),
 		0,
@@ -389,10 +392,14 @@ int MakeVBuffors()
 void FillVBuffors()
 {
 	int vi= 0;	// vertex index
+	int ii = 0; // indexes index
+
 
 	for(int x=0 ; x < ground.width ; x++)
 		for(int z=0 ; z < ground.length ; z++)
 		{
+			pTiles[ii] = vi;
+
 			pVertices[vi] = Vertex(x+0.0f, 0.0f, z+0.0f, 0.0f, 0.0f);
 			pVertices[vi+1] = Vertex(x+1.0f, 0.0f, z+1.0f, 1.0f, 1.0f);
 			pVertices[vi+2] = Vertex(x+1.0f, 0.0f, z+0.0f, 1.0f, 0.0f);
@@ -402,6 +409,7 @@ void FillVBuffors()
 			pVertices[vi+5] = Vertex(x+1.0f, 0.0f, z+1.0f, 1.0f, 1.0f);
 
 			vi += 6;
+			ii++;
 		}
 	
 
@@ -525,6 +533,7 @@ int num_tiles = 0;
 
 int num_v = 0;
 Vertex *pVertices;
+int *pTiles;
 /************************************************************************************************************************************/
 
 
