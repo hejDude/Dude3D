@@ -39,9 +39,11 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE, LPTSTR, INT)
 	hWnd = CreateWindow(
 		_T( "TerrainWndClass" ),	// identyfikator klasy okna
 		_T( "Terrain 2D => Terrain 3D" ),	// wyswietli sie na pasku tytulu
-		WS_SYSMENU | WS_MINIMIZEBOX,	// styl okna
-		CW_USEDEFAULT, CW_USEDEFAULT,	// pozycja x,y
-		800, 600,	// szerokosc i wysokosc
+		//WS_SYSMENU | WS_MINIMIZEBOX,	// styl okna
+		WS_EX_TOPMOST | WS_POPUP,		// fullscreen values
+		//CW_USEDEFAULT, CW_USEDEFAULT,		// pozycja x,y
+		0, 0,
+		SCREEN_WIDTH, SCREEN_HEIGHT,
 		NULL, NULL,
 		hInstance,	// uchwyt instancji programu
 		NULL );
@@ -74,6 +76,7 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE, LPTSTR, INT)
 	pD3DDevice->SetRenderState( D3DRS_ZENABLE, TRUE );
 
 	D3DXCreateTextureFromFile( pD3DDevice, _T("ground1.jpg"), &pTexture );
+	D3DXCreateTextureFromFile( pD3DDevice, _T("sky1.jpg"), &pTexture2 );
 
 	ZeroMemory(&keys, sizeof(char) * 256);
 	//--------------------------------------------------------------------------------
@@ -220,11 +223,17 @@ void Render()
 	pD3DDevice->SetFVF( FVF_VERTEX );	// wybor uzywanej struktury wierzcholka
 
 
+	// rysowanie powierzchni
 	pD3DDevice->SetTexture( 0, pTexture );		 // wybor tekstury
 	pD3DDevice->SetStreamSource( 0, pVBtiles, 0, sizeof( Vertex ) );	// wybor bufora wierzcholkow
 	//pD3DDevice->SetIndices( pIBsciany );
 	//pD3DDevice->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0U, num_v, 0U, num_sciany*2 );	// rysowanie kwadratow
 	pD3DDevice->DrawPrimitive( D3DPT_TRIANGLELIST, 0, num_tiles*2 );	// rysowanie "kafelek"
+
+	// rysowanie nieba
+	pD3DDevice->SetTexture( 0, pTexture2 );		 // wybor tekstury
+	pD3DDevice->SetStreamSource( 0, pVBtiles2, 0, sizeof( Vertex ) );	// wybor bufora wierzcholkow
+	pD3DDevice->DrawPrimitive( D3DPT_TRIANGLELIST, 0, 200*200*2 );	// rysowanie "kafelek"
 
 
     pD3DDevice->EndScene();
@@ -235,6 +244,10 @@ void Render()
 // przetwarzanie klawiszy
 void Input()
 {
+	if(keys[VK_ESCAPE])
+	{
+		PostQuitMessage( 0 );
+	}
 	if(keys['W'])
 	{
         Move(direction);
@@ -341,9 +354,14 @@ int MakeD3DDevice()
  
 	D3DPRESENT_PARAMETERS d3dpp;
 	ZeroMemory( &d3dpp, sizeof( d3dpp ) );
-	d3dpp.Windowed = TRUE;
+	//d3dpp.Windowed = TRUE;
+	d3dpp.Windowed = FALSE;		// false, zeby fullscreen byl
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
+	// zmienne dla fullscreena
+	d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;    // set the back buffer format to 32-bit
+    d3dpp.BackBufferWidth = SCREEN_WIDTH;    // set the width of the buffer
+    d3dpp.BackBufferHeight = SCREEN_HEIGHT;    // set the height of the buffer
  
 	hr = pD3D->CreateDevice(
 		D3DADAPTER_DEFAULT,
@@ -378,9 +396,23 @@ int MakeVBuffors()
 	if( FAILED( hr ) )
 		return 0;
 
+	hr = pD3DDevice->CreateVertexBuffer(
+		num_v * sizeof( Vertex ),
+		0,
+		FVF_VERTEX,
+		D3DPOOL_DEFAULT,
+		&pVBtiles2,
+		NULL );
+	if( FAILED( hr ) )
+		return 0;
+
  
 	// zablokowanie buforow
 	hr = pVBtiles->Lock( 0, 0, ( void** )&pVertices, 0 );
+	if( FAILED( hr ) ) 
+		return 0;
+
+	hr = pVBtiles2->Lock( 0, 0, ( void** )&pVertices2, 0 );
 	if( FAILED( hr ) ) 
 		return 0;
 
@@ -391,10 +423,12 @@ int MakeVBuffors()
 // wypelnienie buforow wierzcholkow i odblokowanie ich
 void FillVBuffors()
 {
-	int vi= 0;	// vertex index
+	int vi = 0;	// vertex index
+	int vi2 = 0;
 	int ii = 0; // indexes index
 
 
+	// utworzenie powierzchni
 	for(int x=0 ; x < ground.width ; x++)
 		for(int z=0 ; z < ground.length ; z++)
 		{
@@ -411,10 +445,26 @@ void FillVBuffors()
 			vi += 6;
 			ii++;
 		}
+
+	
+		// utworzenie nieba
+		for(int x=0 ; x < 200 ; x++)
+			for(int z=0 ; z < 200 ; z++)
+			{
+				pVertices2[vi2] = Vertex(x-100.0f, 100.0f, z-100.0f, 0.0f, 0.0f);
+				pVertices2[vi2+1] = Vertex(x-99.0f, 100.0f, z-100.0f, 1.0f, 0.0f);
+				pVertices2[vi2+2] = Vertex(x-100.0f, 100.0f, z-99.0f, 0.0f, 1.0f);
+				pVertices2[vi2+3] = Vertex(x-100.0f, 100.0f, z-99.0f, 0.0f, 1.0f);
+				pVertices2[vi2+4] = Vertex(x-99.0f, 100.0f, z-99.0f, 1.0f, 1.0f);
+				pVertices2[vi2+5] = Vertex(x-99.0f, 100.0f, z-100.0f, 1.0f, 0.0f);
+
+				vi2 += 6;
+			}
 	
 
 	// odblokowanie buforow
 	pVBtiles->Unlock();
+	pVBtiles2->Unlock();
 }
 
 /************************************************************************************************************************************
@@ -490,6 +540,8 @@ void ClearMemory()
 	//--------------------------------------------------------------------------------
 	if( pTexture ) pTexture->Release();
 	if( pVBtiles ) pVBtiles->Release();
+	if( pTexture ) pTexture2->Release();
+	if( pVBtiles ) pVBtiles2->Release();
 
 	if( pD3DDevice ) pD3DDevice->Release();
     if( pD3D ) pD3D->Release();
@@ -519,8 +571,10 @@ Terrain ground(100, 100);
 IDirect3D9              *pD3D = 0;
 IDirect3DDevice9        *pD3DDevice = 0;
 IDirect3DVertexBuffer9	*pVBtiles = 0;
-IDirect3DIndexBuffer9	*pIBtiles = 0;
+//IDirect3DIndexBuffer9	*pIBtiles = 0;
 IDirect3DTexture9       *pTexture = 0;
+IDirect3DVertexBuffer9	*pVBtiles2 = 0;
+IDirect3DTexture9       *pTexture2 = 0;
 
 D3DXVECTOR3 position;
 D3DXVECTOR3 direction;
@@ -533,6 +587,7 @@ int num_tiles = 0;
 
 int num_v = 0;
 Vertex *pVertices;
+Vertex *pVertices2;
 int *pTiles;
 /************************************************************************************************************************************/
 

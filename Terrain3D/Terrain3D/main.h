@@ -9,6 +9,11 @@
 #include "pixel.h"
 
 
+// define the screen resolution
+#define SCREEN_WIDTH  1366
+#define SCREEN_HEIGHT 768
+
+
 /************************************************************************************************************************************/
 ///////////////////////
 /// Funkcje :
@@ -72,6 +77,10 @@ extern IDirect3DDevice9        *pD3DDevice;
 extern IDirect3DVertexBuffer9	*pVBtiles;
 //extern IDirect3DIndexBuffer9	*pIBtiles;
 extern IDirect3DTexture9		*pTexture;
+
+
+extern IDirect3DVertexBuffer9	*pVBtiles2;
+extern IDirect3DTexture9		*pTexture2;
 //----------------------------------------------------------------------
 
 // wektory DirectX

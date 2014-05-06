@@ -37,6 +37,7 @@ extern int num_v;
 
 // wskaznik na tablice wierzcholkow
 extern Vertex *pVertices;
+extern Vertex *pVertices2;
 
 /************************************************************************************************************************************/
 
