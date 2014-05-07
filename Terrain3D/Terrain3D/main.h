@@ -12,6 +12,7 @@
 // define the screen resolution
 #define SCREEN_WIDTH  1366
 #define SCREEN_HEIGHT 768
+#define SKY_HEIGHT 100
 
 
 /************************************************************************************************************************************/
@@ -59,9 +60,6 @@ extern HRESULT hr;
 // okno WinAPI
 extern HWND hWnd;
 
-// strumien do odczytu danych z pliku
-//extern ifstream file;
-
 // tablica przechowujaca stan klawiszy (wcisniety lub nie)
 extern char keys[256];
 
@@ -75,7 +73,6 @@ extern IDirect3D9              *pD3D;
 extern IDirect3DDevice9        *pD3DDevice;
 
 extern IDirect3DVertexBuffer9	*pVBtiles;
-//extern IDirect3DIndexBuffer9	*pIBtiles;
 extern IDirect3DTexture9		*pTexture;
 
 

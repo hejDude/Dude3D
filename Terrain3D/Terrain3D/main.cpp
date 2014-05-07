@@ -76,7 +76,7 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE, LPTSTR, INT)
 	pD3DDevice->SetRenderState( D3DRS_ZENABLE, TRUE );
 
 	D3DXCreateTextureFromFile( pD3DDevice, _T("ground1.jpg"), &pTexture );
-	D3DXCreateTextureFromFile( pD3DDevice, _T("sky1.jpg"), &pTexture2 );
+	D3DXCreateTextureFromFile( pD3DDevice, _T("sky2.jpg"), &pTexture2 );
 
 	ZeroMemory(&keys, sizeof(char) * 256);
 	//--------------------------------------------------------------------------------
@@ -226,14 +226,12 @@ void Render()
 	// rysowanie powierzchni
 	pD3DDevice->SetTexture( 0, pTexture );		 // wybor tekstury
 	pD3DDevice->SetStreamSource( 0, pVBtiles, 0, sizeof( Vertex ) );	// wybor bufora wierzcholkow
-	//pD3DDevice->SetIndices( pIBsciany );
-	//pD3DDevice->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0U, num_v, 0U, num_sciany*2 );	// rysowanie kwadratow
 	pD3DDevice->DrawPrimitive( D3DPT_TRIANGLELIST, 0, num_tiles*2 );	// rysowanie "kafelek"
 
 	// rysowanie nieba
 	pD3DDevice->SetTexture( 0, pTexture2 );		 // wybor tekstury
 	pD3DDevice->SetStreamSource( 0, pVBtiles2, 0, sizeof( Vertex ) );	// wybor bufora wierzcholkow
-	pD3DDevice->DrawPrimitive( D3DPT_TRIANGLELIST, 0, 200*200*2 );	// rysowanie "kafelek"
+	pD3DDevice->DrawPrimitive( D3DPT_TRIANGLELIST, 0, 5*2 );	// rysowanie "kafelek"
 
 
     pD3DDevice->EndScene();
@@ -424,7 +422,6 @@ int MakeVBuffors()
 void FillVBuffors()
 {
 	int vi = 0;	// vertex index
-	int vi2 = 0;
 	int ii = 0; // indexes index
 
 
@@ -448,88 +445,46 @@ void FillVBuffors()
 
 	
 		// utworzenie nieba
-		for(int x=0 ; x < 200 ; x++)
-			for(int z=0 ; z < 200 ; z++)
-			{
-				pVertices2[vi2] = Vertex(x-100.0f, 100.0f, z-100.0f, 0.0f, 0.0f);
-				pVertices2[vi2+1] = Vertex(x-99.0f, 100.0f, z-100.0f, 1.0f, 0.0f);
-				pVertices2[vi2+2] = Vertex(x-100.0f, 100.0f, z-99.0f, 0.0f, 1.0f);
-				pVertices2[vi2+3] = Vertex(x-100.0f, 100.0f, z-99.0f, 0.0f, 1.0f);
-				pVertices2[vi2+4] = Vertex(x-99.0f, 100.0f, z-99.0f, 1.0f, 1.0f);
-				pVertices2[vi2+5] = Vertex(x-99.0f, 100.0f, z-100.0f, 1.0f, 0.0f);
+		pVertices2[0] = Vertex(0.0f, SKY_HEIGHT, 0.0f, 0.0f, 0.0f);
+		pVertices2[1] = Vertex(ground.width, SKY_HEIGHT, 0.0f, 1.0f, 0.0f);
+		pVertices2[2] = Vertex(0.0f, SKY_HEIGHT, ground.length, 0.0f, 1.0f);
+		pVertices2[3] = Vertex(0.0f, SKY_HEIGHT, ground.length, 0.0f, 1.0f);
+		pVertices2[4] = Vertex(ground.width, SKY_HEIGHT, ground.length, 1.0f, 1.0f);
+		pVertices2[5] = Vertex(ground.width, SKY_HEIGHT, 0.0f, 1.0f, 0.0f);
 
-				vi2 += 6;
-			}
-	
+		pVertices2[6] = Vertex(0.0f, SKY_HEIGHT, ground.length, 0.0f, 0.0f);
+		pVertices2[7] = Vertex(ground.width, SKY_HEIGHT, ground.length, 1.0f, 0.0f);
+		pVertices2[8] = Vertex(0.0f, 0.0f, SKY_HEIGHT, 0.0f, 1.0f);
+		pVertices2[9] = Vertex(0.0f, 0.0f, SKY_HEIGHT, 0.0f, 1.0f);
+		pVertices2[10] = Vertex(ground.width, 0.0f, ground.length, 1.0f, 1.0f);
+		pVertices2[11] = Vertex(ground.width, SKY_HEIGHT, ground.length, 1.0f, 0.0f);
 
+		pVertices2[12] = Vertex(0.0f, SKY_HEIGHT, 0.0f, 0.0f, 0.0f);
+		pVertices2[13] = Vertex(0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+		pVertices2[14] = Vertex(0.0f, SKY_HEIGHT, ground.length, 0.0f, 1.0f);
+		pVertices2[15] = Vertex(0.0f, SKY_HEIGHT, ground.length, 0.0f, 1.0f);
+		pVertices2[16] = Vertex(0.0f, 0.0f, ground.length, 1.0f, 1.0f);
+		pVertices2[17] = Vertex(0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+
+		pVertices2[18] = Vertex(ground.width, SKY_HEIGHT, 0.0f, 0.0f, 0.0f);
+		pVertices2[19] = Vertex(ground.width, 0.0f, 0.0f, 1.0f, 0.0f);
+		pVertices2[20] = Vertex(ground.width, SKY_HEIGHT, ground.length, 0.0f, 1.0f);
+		pVertices2[21] = Vertex(ground.width, SKY_HEIGHT, ground.length, 0.0f, 1.0f);
+		pVertices2[22] = Vertex(ground.width, 0.0f, ground.length, 1.0f, 1.0f);
+		pVertices2[23] = Vertex(ground.width, 0.0f, 0.0f, 1.0f, 0.0f);
+
+		pVertices2[24] = Vertex(0.0f, SKY_HEIGHT, 0.0f, 0.0f, 0.0f);
+		pVertices2[25] = Vertex(ground.width, SKY_HEIGHT, 0.0f, 1.0f, 0.0f);
+		pVertices2[26] = Vertex(0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+		pVertices2[27] = Vertex(0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+		pVertices2[28] = Vertex(ground.width, 0.0f, 0.0f, 1.0f, 1.0f);
+		pVertices2[29] = Vertex(ground.width, SKY_HEIGHT, 0.0f, 1.0f, 0.0f);
+
+		
+		
 	// odblokowanie buforow
 	pVBtiles->Unlock();
 	pVBtiles2->Unlock();
-}
-
-/************************************************************************************************************************************
-// utworzenie i wypelnienie bufora indeksow
-void MakeIBuffor()
-{
-	UINT *pS;
-	pD3DDevice->CreateIndexBuffer(
-        num_sciany*2*3*sizeof( UINT ),
-        D3DUSAGE_DONOTCLIP,
-        D3DFMT_INDEX32,
-        D3DPOOL_DEFAULT,
-        &pIBsciany,
-        NULL );
-	pIBsciany->Lock( 0U, 0U, (void**)&pS, 0 );
- 
-	UINT *pP;
-	pD3DDevice->CreateIndexBuffer(
-        num_podlogi*2*3*sizeof( UINT ),
-        D3DUSAGE_DONOTCLIP,
-        D3DFMT_INDEX32,
-        D3DPOOL_DEFAULT,
-        &pIBpodlogi,
-        NULL );
-	pIBpodlogi->Lock( 0U, 0U, (void**)&pP, 0 );
-        
-	for(int z = 0; z < mapa_size[ 2 ]; ++z)
-		for(int y = 0; y < mapa_size[ 1 ]; ++y)
-			for(int x = 0; x < mapa_size[ 0 ]; ++x)
-				for(int wymiar = 0; wymiar < 3; ++wymiar)
-					for(int strona = 0; strona < 2; ++strona)
-						if( !MAPA( x,y,z ).przejscie[ wymiar ][ strona ] )
-						{
-							if( wymiar == 1 )
-							{
-								*pP++ = V(x,y+strona,z);
-								*pP++ = V(x+strona,y+strona,z+1-strona);
-								*pP++ = V(x+1-strona,y+strona,z+strona);
- 
-								*pP++ = V(x+1,y+strona,z+1);
-								*pP++ = V(x+1-strona,y+strona,z+strona);
-								*pP++ = V(x+strona,y+strona,z+1-strona);
-							}
-							else if( wymiar == 0 )
-							{
-								 *pS++ = V(x+strona, y, z);
-								 *pS++ = V(x+strona, y+1-strona, z+strona);
-								 *pS++ = V(x+strona, y+strona, z+1-strona);
- 
-								 *pS++ = V(x+strona, y+1, z+1);
-								 *pS++ = V(x+strona, y+strona, z+1-strona);
-								 *pS++ = V(x+strona, y+1-strona, z+strona);
-							}
-							else    // wymiar == 2
-							{
-								*pS++ = V(x, y, z+strona);
-								*pS++ = V(x+1-strona, y+strona, z+strona);
-								*pS++ = V(x+strona, y+1-strona, z+strona);
- 
-								*pS++ = V(x+1, y+1, z+strona);
-								*pS++ = V(x+strona, y+1-strona, z+strona);
-								*pS++ = V(x+1-strona, y+strona, z+strona);
-							}
-						}
-
 }
 
 /************************************************************************************************************************************/
@@ -562,7 +517,6 @@ void ClearMemory()
 
 HRESULT hr;
 HWND hWnd;
-//ifstream file;
 char keys[256];
 
 Terrain ground(100, 100);
@@ -571,7 +525,6 @@ Terrain ground(100, 100);
 IDirect3D9              *pD3D = 0;
 IDirect3DDevice9        *pD3DDevice = 0;
 IDirect3DVertexBuffer9	*pVBtiles = 0;
-//IDirect3DIndexBuffer9	*pIBtiles = 0;
 IDirect3DTexture9       *pTexture = 0;
 IDirect3DVertexBuffer9	*pVBtiles2 = 0;
 IDirect3DTexture9       *pTexture2 = 0;

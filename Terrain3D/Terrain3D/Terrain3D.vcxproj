@@ -78,7 +78,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="pixel.cpp" />
     <ClCompile Include="terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
